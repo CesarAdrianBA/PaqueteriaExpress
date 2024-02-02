@@ -6,6 +6,6 @@
     <title>Mostrar</title>
 </head>
 <body>
-    
+    <h1>Usuario Normal</h1>
 </body>
 </html>

@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Comprobar el nivel del usuario
                 switch ($_SESSION['rol']) {
                     case 1:
-                        header('Location: ./CRUD/main.php');
+                        header('Location: ./CRUD_Paquetes/main.php');
                         break;
                     case 2:
                         // header('Location: ./CRUD/main.php');

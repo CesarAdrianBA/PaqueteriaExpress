@@ -2,7 +2,7 @@
 <html lang="es">
 	<head>
 		<title>Administración de Noticias</title>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous"> -->
+    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
 		<link href="bootstrap/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -15,21 +15,21 @@
     <div class="row">
       <div class="col-md-4">
 	  <div class="list-group">
-  <a href="menu.php" class="list-group-item list-group-item-action active" aria-current="true">
+  <a href="main.php" class="list-group-item list-group-item-action active" aria-current="true">
   Administración de Noticias
   </a>
-  <a href="AltaRevistas.php" class="list-group-item list-group-item-action">Agregar Noticia</a>
-  <a href="consultaNoticias.php" class="list-group-item list-group-item-action">Consultar Noticia</a>
-  <a href="cambiosNoticias.php" class="list-group-item list-group-item-action">Modificar Noticia</a>
-  <a href="bajaRevistas.php" class="list-group-item list-group-item-action">Eliminar Noticia</a>
+  <a href="altaPaquetes.php" class="list-group-item list-group-item-action">Agregar paquete</a>
+  <a href="" class="list-group-item list-group-item-action">Consultar paquete</a>
+  <a href="" class="list-group-item list-group-item-action">Modificar paquete</a>
+  <a href="" class="list-group-item list-group-item-action">Eliminar paquete</a>
   <a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 </div>
       </div>
 	  <div class="col-8">
-	  <label class="form-label">LISTADO DE NOTICIAS REGISTRADAS</label>
+	  <label class="form-label">LISTADO DE PAQUETES REGISTRADOS</label>
 		<?php
 			$db = new Database();
-			$query = $db->connect()->prepare('select * FROM contactanos order by clave desc');
+			$query = $db->connect()->prepare('select * FROM paquetes order by id desc');
 				$query->setFetchMode(PDO::FETCH_ASSOC);
 				$query->execute();
 				//$row = $query->fetch();
@@ -39,21 +39,17 @@
 					print ("<tr>\n");
 					print ("<thead>\n");
 						print ("<th>Id</th>\n");
-						print ("<th>Clave</th>\n");
-						print ("<th>Título</th>\n");
-						print ("<th>Texto</th>\n");
-						print ("<th>Fecha</th>\n");
-						print ("<th>Categoría</th>\n");
+						print ("<th>Codigo</th>\n");
+						print ("<th>peso</th>\n");
+						print ("<th>estado</th>\n");
 						print ("</th>\n");
 					print ("</thead>\n");
 					while ($row = $query->fetch()){
 						print ("<tr>\n");
 						print ("<td>" . $row['id'] . "</td>\n");
-						print ("<td>" . $row['clave'] . "</td>\n");
-						print ("<td>" . $row['titulo'] . "</td>\n");
-						print ("<td>" . $row['texto'] . "</td>\n");
-						print ("<td>" . $row['fecha'] . "</td>\n");
-						print ("<td>" . $row['categoria'] . "</td>\n");
+						print ("<td>" . $row['codigo'] . "</td>\n");
+						print ("<td>" . $row['peso'] . "</td>\n");
+						print ("<td>" . $row['estado'] . "</td>\n");
 						print ("</tr>\n");
 					}
 					print ("</table>\n");
