@@ -1,0 +1,111 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(44, 44, 44);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 135vh;
+    background-color: #1d1d1d;
+    border: solid 2px rgb(19, 19, 19);
+    border-radius: 14px;
+    margin: 5vh auto;
+}
+
+.form__box-register {
+    position: absolute;
+    z-index: 1;
+}
+
+.form__box-login {
+    position: absolute;
+    z-index: 2;
+}
+
+.login,
+.register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.form-container .login h1,
+.form-container .register h1 {
+    font-size: 2rem;
+    color: rgb(231, 231, 231);
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.form-container .img-logo img {
+    width: 30vh;
+    height: 20vh;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    margin: 6vh 0 0 0;
+}
+
+.form-group2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    height: 40vh;
+    margin: 8vh 0 0 0;
+}
+
+.form-container .form-floating {
+    width: 100%;
+}
+
+.custom-btn,
+.login-btn {
+    height: 60px;
+    cursor: auto;
+    text-align: center;
+    font-size: large;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.form-control[type="text"] {
+    color: #343a40; /* Color oscuro, puedes ajustarlo según tus preferencias */
+}
+
+.custom-btn,
+.login-btn {
+    background-color: #ee3910; /* Cambia este color según tus preferencias */
+    color: #fff; /* Color del texto */
+    /* Otros estilos si es necesario */
+}
+
+.custom-btn:hover,
+.login-btn:hover {
+    background-color: #c03219; /* Cambia este color según tus preferencias */
+    /* Otros estilos al pasar el ratón si es necesario */
+}
+
+.link-opacity-75 {
+    color: #c03219; /* Cambia este color según tus preferencias */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.link-opacity-75:hover {
+    color: #c03219; /* Cambia este color según tus preferencias */
+}

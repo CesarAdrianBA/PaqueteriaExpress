@@ -32,7 +32,7 @@
                         <li class="nav-item"><a class="nav-link" href="#services">Presentación</a></li>
                         <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">Acerca</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">log in</a></li>
+                        <li class="nav-item"><a class="nav-link" href="./login.php">log in</a></li>
                     </ul>
                 </div>
             </div>
