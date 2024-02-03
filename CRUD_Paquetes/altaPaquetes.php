@@ -70,7 +70,7 @@
 						<a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar Paquete</a>
 						<a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar Paquete</a>
 						<a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar Paquete</a>
-						<a href="#" class="list-group-item list-group-item-action">Cerrar sesión</a>
+						<a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 					</div>
     		</div>
     		<div class="col-8">

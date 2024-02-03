@@ -34,7 +34,7 @@
 						<a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar Paquete</a>
 						<a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar Paquete</a>
 						<a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar Paquete</a>
-						<a href="#" class="list-group-item list-group-item-action">Cerrar sesión</a>
+						<a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 				</div>
     		</div>
 					<div class="col-8">
@@ -47,92 +47,77 @@
 							<input type="submit" class="btn btn-primary" name ="buscar" id="buscar" value="Buscar ID"/>
 						</div>
 			<?php
-				if(isset($_REQUEST['buscar'])){
-					$id=isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
+			error_reporting(E_ALL);
+			ini_set('display_errors', 1);
+
+				if (isset($_POST['buscar'])) {
+					$id = isset($_POST['id']) ? $_POST['id'] : null;
 
 					$query = $db->connect()->prepare('SELECT * FROM paquetes WHERE id = :id');
-                    $query->setFetchMode(PDO::FETCH_ASSOC);
-                    $query->execute([':id' => $id]);
-								$row = $query->fetch();
-								if($query -> rowCount() > 0){
+					$query->setFetchMode(PDO::FETCH_ASSOC);
+					$query->execute([':id' => $id]);
+					$row = $query->fetch();
 
-							echo
-								'<div class="mb-3">
-									<label for="exampleFormControlInput1" 
-										class="form-label">id de noticia a modificar:</label>
-									<input type="text" class="form-control" value="'.$row['id'].'" disabled/>
-								</div>'.
-								'<div class="mb-3">
-									<label for="exampleFormControlInput1" 
-										class="form-label">código del paquete:</label>
-									<input type="text" class="form-control" lang="es" href="qa-html-language-declarations.es"
-										name="codigo" value ="'.$row['codigo'].'"/>
-								</div>'.
-								'<div class="mb-3">
-									<label for="exampleFormControlInput1" class="form-label">Fecha de pedido:</label>
-									<input type="date" class="form-control" name="fecha" value ="'.$row['fecha'].'">
-								</div>'.
-                                
-								'<div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">peso:</label>
-                                    <input type="text" class="form-control" name="peso" value ="'.$row['peso'].'">
-                                </div>'.
-                                
-								'<div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Estado:</label>
-                                    <input type="text" class="form-control" name="estado" value ="'.$row['estado'].'">
-                                </div>'.
+					if ($query->rowCount() > 0) {
+						echo
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" 
+								class="form-label">id de noticia a modificar:</label>
+							<input type="text" class="form-control" value="'.$row['id'].'" disabled/>
+						</div>'.
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" 
+								class="form-label">código del paquete:</label>
+							<input type="text" class="form-control" lang="es" href="qa-html-language-declarations.es"
+								name="codigo" value ="'.$row['codigo'].'"/>
+						</div>'.
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Fecha de pedido:</label>
+							<input type="date" class="form-control" name="fecha" value ="'.$row['fecha'].'">
+						</div>'.
+						
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">peso:</label>
+							<input type="text" class="form-control" name="peso" value ="'.$row['peso'].'">
+						</div>'.
+						
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">Estado:</label>
+							<input type="text" class="form-control" name="estado" value ="'.$row['estado'].'">
+						</div>'.
 
 
-								'<div class="mb-3">
-									<button type="submit" class="btn btn-primary" name="cambiar">Cambiar datos</button>
-								</div>';
-						}else if ($query -> rowCount() <= 0){
-							echo "no existe esa id de Noticia.";
-						}		 
+						'<div class="mb-3">
+							<button type="submit" class="btn btn-primary" name="cambiar">Cambiar datos</button>
+						</div>';
+					} else {
+						echo "No existe esa ID de Paquete.";
+					}
 				}
-				
-				if(isset($_REQUEST['cambiar'])){ 
 
+				if (isset($_POST['cambiar'])) {
+					$id = $_POST['id'];
+					$codigo = $_POST['codigo'];
+					$peso = $_POST['peso'];
+					$estado = $_POST['estado'];
+					$fecha = $_POST['fecha'];
 
-					$id=$_POST['id'];
-					$codigo=$_POST['codigo'];
-					$peso=$_POST['peso'];
-                    $estado=$_POST['estado'];
-					$fecha =$_POST['fecha'];
-					
 					$sql = "UPDATE paquetes SET codigo=?, peso=?, estado=?, fecha=? WHERE id=?";
-$stmt = $db->connect()->prepare($sql); 
-$stmt->execute([$codigo, $peso, $estado, $fecha, $id]);
+					$stmt = $db->connect()->prepare($sql);
+					$stmt->execute([$codigo, $peso, $estado, $fecha, $id]);
 
+					$errorInfo = $stmt->errorInfo();
+					if ($errorInfo[0] !== '00000') {
+						// Mostrar o registrar el error
+						echo "Error SQL: " . $errorInfo[2];
+					}
 
-
-					if($stmt->rowCount() > 0){
-						echo"<br/><br/>Los datos fueron modificados con exito";
-						print ("<br/><br/><hr/><br/>");
-						print ("<table class='table table-striped'>\n");
-							print ("<tr>\n");
-								print ("<th>id</th>\n");
-								print ("<td>" . $id . "</td>\n");
-							print ("</tr>\n");
-							print ("<tr>\n");
-								print ("<th>Codigo</th>\n");
-								print ("<td>" . $_REQUEST['codigo'] . "</td>\n");
-							print ("</tr>\n");
-							print ("<tr>\n");
-								print ("<th>Fecha</th>\n");
-								print ("<td>" .$fecha. "</td>\n");
-							print ("</tr>\n");
-							print ("<tr>\n");
-								print ("<th>peso</th>\n");
-								print ("<td>" .$peso. "</td>\n");
-							print ("</tr>\n");
-							print ("<tr>\n");
-						print ("</table>\n");
-						print ("<br /><hr />");
-					}else if ($stmt->rowCount()<=  0) {
+					if ($stmt->rowCount() > 0) {
+						echo "<br/><br/>Los datos fueron modificados con éxito";
+						// ... (código para mostrar los detalles actualizados)
+					} else {
 						echo "No se actualizó el registro!!!";
-						echo "id" , $id;
+						echo "ID: " . $id;
 					}
 				}//boton cambiar
 				//mysqli_close($conexion);
