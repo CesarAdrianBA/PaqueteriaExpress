@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         break;
                     case 2:
                         // header('Location: ./CRUD/main.php');
-                        header('Location: ./mostrar.php' );
+                        header('Location: ./CRUD_Usuarios/main.php' );
                         break;
                     
                     default:

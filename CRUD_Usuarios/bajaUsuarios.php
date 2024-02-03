@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Baja de Paquetes</title>
+		<title>Baja de usuarios</title>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
@@ -15,19 +15,19 @@
 			<div class="col-4">
 				<div class="list-group">
 					<a href="menu.php" class="list-group-item list-group-item-action active" aria-current="true">
-					Administración de Paquetes
+					Administración de usuarios
 					</a>
-					<a href="altaPaquetes.php" class="list-group-item list-group-item-action">Agregar paquete</a>
-					<a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar paquete</a>
-					<a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar paquete</a>
-					<a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar paquete</a>
+					<a href="altaUsuarios.php" class="list-group-item list-group-item-action">Agregar Empleado</a>
+					<a href="consultaUsuarios.php" class="list-group-item list-group-item-action">Consultar Empleado</a>
+					<a href="cambioUsuarios.php" class="list-group-item list-group-item-action">Modificar Empleado</a>
+					<a href="bajaUsuarios.php" class="list-group-item list-group-item-action">Eliminar Empleado</a>
 					<a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 				</div>
     		</div>
 				<div class="col-8">
 					<form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"> 
 						<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">id de paquetes a eliminar:</label>
+							<label for="exampleFormControlInput1" class="form-label">id de usuarios a eliminar:</label>
 							<input type="text" class="form-control" id="id"  value="<?php echo $id;?>" name ="id">
 						</div>
 						<div class="mb-3">
@@ -38,7 +38,7 @@
 							$db = new Database();
 							if (isset($_REQUEST['buscar'])){
 								$id=isset($_REQUEST['id']) ? $_REQUEST['id'] :  null;
-								$query = $db->connect()->prepare('select * FROM Paquetes where id = :id');
+								$query = $db->connect()->prepare('select * FROM usuarios where id = :id');
 								$query->setFetchMode(PDO::FETCH_ASSOC);
 								$query->execute(['id' => $id]);
 								$row = $query->fetch();
@@ -49,27 +49,45 @@
 									print ("Datos del registro.");
 									print ("<br/><br/><hr/><br/>");
 									print ("<table class='table table-striped'>\n");
+										
 										print ("<tr>\n");
-											print ("<th>Id</th>\n");
-											print ("<td>".$row['id']. "</td>\n");
+										print ("<th>Id</th>\n");
+										print ("<td>".$row['id']. "</td>\n");
 										print ("</tr>\n");
 										print ("<tr>\n");
-											print ("<th>Código</th>\n");
-											print ("<td>" . $row['codigo'] . "</td>\n");
+											print ("<th>Nombre</th>\n");
+											print ("<td>" . $row['nombre'] . "</td>\n");
 										print ("</tr>\n");
 										print ("<tr>\n");
-											print ("<th>Peso</th>\n");
-											print ("<td>" . $row['peso'] . "</td>\n");
+											print ("<th>Apellidos</th>\n");
+											print ("<td>" . $row['apellidos'] . "</td>\n");
 										print ("</tr>\n");
 										print ("<tr>\n");
-											print ("<th>Estado</th>\n");
-											print ("<td>" . $row['estado'] . "</td>\n");
-										//$variable = utf8_decode($variable);
-										print ("</tr>\n");
+										print ("<th>Edad</th>\n");
+											print ("<td>" . $row['edad'] . "</td>\n");
+											print ("</tr>\n");
 										print ("<tr>\n");
-											print ("<th>Fecha</th>\n");
-											print ("<td>" .$row['fecha']. "</td>\n");
-										print ("</tr>\n");
+										print ("<tr>\n");
+										print ("<th>cargo</th>\n");
+											print ("<td>" . $row['cargo'] . "</td>\n");
+											print ("</tr>\n");
+										print ("<tr>\n");
+										print ("<tr>\n");
+										print ("<th>nivel</th>\n");
+											print ("<td>" . $row['nivel'] . "</td>\n");
+											print ("</tr>\n");
+										print ("<tr>\n");
+										print ("<tr>\n");
+										print ("<th>usuario</th>\n");
+											print ("<td>" . $row['usuario'] . "</td>\n");
+											print ("</tr>\n");
+										print ("<tr>\n");
+										print ("<tr>\n");
+										print ("<th>correo</th>\n");
+											print ("<td>" . $row['correo'] . "</td>\n");
+											print ("</tr>\n");
+										print ("<tr>\n");
+
 									print ("</table>\n");
 									print ("<br /><hr />");
 									print ("<input type='submit' name='borrar' value='Eliminar registro'/></form>\n");
@@ -78,12 +96,12 @@
 							if (isset($_REQUEST['borrar'])){
 								$id=isset($_REQUEST['id']) ? $_REQUEST['id'] :  null;
 								
-								$query = $db->connect()->prepare('delete FROM Paquetes where id = :id');
+								$query = $db->connect()->prepare('delete FROM usuarios where id = :id');
 								$query->execute(['id' => $id]);
 								if (!$query){
 									echo "Error".$query->errorInfo();
 								}
-								echo "<br /><hr />Registro de paquetes eliminado.";
+								echo "<br /><hr />Registro de usuarios eliminado.";
 								// Cerrar conexión 
 							$query->closeCursor(); // opcional en MySQL, dependiendo del controlador de base de datos puede ser obligatorio
 							$query = null; // obligado para cerrar la conexión

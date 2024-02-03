@@ -11,16 +11,6 @@
 			include('database.php');
 			$db = new Database();
 			$id="";
-
-			// function test_entrada($data){
-			// 	$data = trim($data);
-			// 	$data = stripslashes($data);
-			// 	$data = htmlspecialchars($data);
-			// 	return $data;
-			// }
-			// if($_SERVER["REQUEST_METHOD"]=="POST"){
-			// 	$id = test_entrada($_POST["id"]);
-			// }
 		?>
 		<form method="POST" action="<?php htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="container">
@@ -30,10 +20,10 @@
 						<a href="menu.php" class="list-group-item list-group-item-action active" aria-current="true">
 							Administración de paquetes
 						</a>
-						<a href="altaPaquetes.php" class="list-group-item list-group-item-action">Agregar paquete</a>
-						<a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar paquete</a>
-						<a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar paquete</a>
-						<a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar paquete</a>
+						<a href="altaUsuarios.php" class="list-group-item list-group-item-action">Agregar Empleado</a>
+						<a href="consultaUsuarios.php" class="list-group-item list-group-item-action">Consultar Empleado</a>
+						<a href="cambioUsuarios.php" class="list-group-item list-group-item-action">Modificar Empleado</a>
+						<a href="bajaUsuarios.php" class="list-group-item list-group-item-action">Eliminar Empleado</a>
 						<a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 				</div>
     		</div>
@@ -53,7 +43,7 @@
 				if (isset($_POST['buscar'])) {
 					$id = isset($_POST['id']) ? $_POST['id'] : null;
 
-					$query = $db->connect()->prepare('SELECT * FROM paquetes WHERE id = :id');
+					$query = $db->connect()->prepare('SELECT * FROM usuarios WHERE id = :id');
 					$query->setFetchMode(PDO::FETCH_ASSOC);
 					$query->execute([':id' => $id]);
 					$row = $query->fetch();
@@ -69,21 +59,41 @@
 							<label for="exampleFormControlInput1" 
 								class="form-label">código del paquete:</label>
 							<input type="text" class="form-control" lang="es" href="qa-html-language-declarations.es"
-								name="codigo" value ="'.$row['codigo'].'"/>
+								name="nombre" value ="'.$row['nombre'].'"/>
 						</div>'.
 						'<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Fecha de pedido:</label>
-							<input type="date" class="form-control" name="fecha" value ="'.$row['fecha'].'">
-						</div>'.
-						
-						'<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">peso:</label>
-							<input type="text" class="form-control" name="peso" value ="'.$row['peso'].'">
+							<label for="exampleFormControlInput1" class="form-label">Apellidos:</label>
+							<input type="text" class="form-control" name="apellidos" value ="'.$row['apellidos'].'">
 						</div>'.
 						
 						'<div class="mb-3">
-							<label for="exampleFormControlInput1" class="form-label">Estado:</label>
-							<input type="text" class="form-control" name="estado" value ="'.$row['estado'].'">
+							<label for="exampleFormControlInput1" class="form-label">edad:</label>
+							<input type="text" class="form-control" name="edad" value ="'.$row['edad'].'">
+						</div>'.
+						
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">cargo:</label>
+							<input type="text" class="form-control" name="cargo" value ="'.$row['cargo'].'">
+						</div>'.
+
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">nivel:</label>
+							<input type="text" class="form-control" name="nivel" value ="'.$row['nivel'].'">
+						</div>'.
+
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">usuario:</label>
+							<input type="text" class="form-control" name="usuario" value ="'.$row['usuario'].'">
+						</div>'.
+
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">correo:</label>
+							<input type="text" class="form-control" name="correo" value ="'.$row['correo'].'">
+						</div>'.
+
+						'<div class="mb-3">
+							<label for="exampleFormControlInput1" class="form-label">contraseña:</label>
+							<input type="text" class="form-control" name="contrasenna">
 						</div>'.
 
 
@@ -97,14 +107,22 @@
 
 				if (isset($_POST['cambiar'])) {
 					$id = $_POST['id'];
-					$codigo = $_POST['codigo'];
-					$peso = $_POST['peso'];
-					$estado = $_POST['estado'];
-					$fecha = $_POST['fecha'];
+					$nombre = $_POST['nombre'];
+					$apellidos = $_POST['apellidos'];
+					$edad = $_POST['edad'];
+					$cargo = $_POST['cargo'];
+					$nivel = $_POST['nivel'];
+					$usuario = $_POST['usuario'];
+					$correo = $_POST['correo'];
+					$contrasenna = $_POST['contrasenna'];
+					
+					// Encriptar contraseña
+					$hashed_password = password_hash($contrasenna,PASSWORD_DEFAULT, array("cost">=10));
 
-					$sql = "UPDATE paquetes SET codigo=?, peso=?, estado=?, fecha=? WHERE id=?";
+
+					$sql = "UPDATE usuarios SET nombre=?, apellidos=?, edad=?, cargo=?,  nivel=?, usuario=?, correo=?, contrasenna=? WHERE id=?";
 					$stmt = $db->connect()->prepare($sql);
-					$stmt->execute([$codigo, $peso, $estado, $fecha, $id]);
+					$stmt->execute([$nombre, $apellidos, $edad, $cargo, $nivel, $usuario, $correo, $hashed_password, $id ]);
 
 					$errorInfo = $stmt->errorInfo();
 					if ($errorInfo[0] !== '00000') {
@@ -114,7 +132,7 @@
 
 					if ($stmt->rowCount() > 0) {
 						echo "<br/><br/>Los datos fueron modificados con éxito";
-						// ... (código para mostrar los detalles actualizados)
+						
 					} else {
 						echo "No se actualizó el registro!!!";
 						echo "ID: " . $id;

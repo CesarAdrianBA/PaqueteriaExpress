@@ -66,10 +66,10 @@
 						<a href="menu.php" class="list-group-item list-group-item-action active" aria-current="true">
 							Administración de Noticias
 						</a>
-						<a href="altaPaquetes.php" class="list-group-item list-group-item-action">Agregar Paquete</a>
-						<a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar Paquete</a>
-						<a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar Paquete</a>
-						<a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar Paquete</a>
+						<a href="altaPaquetes.php" class="list-group-item list-group-item-action">Agregar paquete</a>
+						<a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar paquete</a>
+						<a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar paquete</a>
+						<a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar paquete</a>
 						<a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 					</div>
     		</div>

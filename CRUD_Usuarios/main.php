@@ -18,18 +18,18 @@
   <a href="main.php" class="list-group-item list-group-item-action active" aria-current="true">
   Administración de Noticias
   </a>
-  <a href="altaPaquetes.php" class="list-group-item list-group-item-action">Agregar paquete</a>
-  <a href="consultaPaquetes.php" class="list-group-item list-group-item-action">Consultar paquete</a>
-  <a href="cambioPaquetes.php" class="list-group-item list-group-item-action">Modificar paquete</a>
-  <a href="bajaPaquetes.php" class="list-group-item list-group-item-action">Eliminar paquete</a>
-  <a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
+  <a href="altaUsuarios.php" class="list-group-item list-group-item-action">Agregar Empleado</a>
+<a href="consultaUsuarios.php" class="list-group-item list-group-item-action">Consultar Empleado</a>
+<a href="cambioUsuarios.php" class="list-group-item list-group-item-action">Modificar Empleado</a>
+<a href="bajaUsuarios.php" class="list-group-item list-group-item-action">Eliminar Empleado</a>
+<a href="../cerrar.php" class="list-group-item list-group-item-action">Cerrar sesión</a>
 </div>
       </div>
 	  <div class="col-8">
-	  <label class="form-label">LISTADO DE PAQUETES REGISTRADOS</label>
+	  <label class="form-label">LISTADO DE EMPLEADOS REGISTRADOS</label>
 		<?php
 			$db = new Database();
-			$query = $db->connect()->prepare('select * FROM paquetes order by id desc');
+			$query = $db->connect()->prepare('select * FROM usuarios order by id desc');
 				$query->setFetchMode(PDO::FETCH_ASSOC);
 				$query->execute();
 				//$row = $query->fetch();
@@ -38,18 +38,26 @@
 					print ("<table class='table table-striped'>\n");
 					print ("<tr>\n");
 					print ("<thead>\n");
-						print ("<th>Id</th>\n");
-						print ("<th>Codigo</th>\n");
-						print ("<th>peso</th>\n");
-						print ("<th>estado</th>\n");
+					print ("<th>Id</th>\n");
+					print ("<th>Nombre</th>\n");
+					print ("<th>Apellidos</th>\n");
+					print ("<th>Edad</th>\n");
+					print ("<th>Cargo</th>\n");
+					print ("<th>Nivel</th>\n");
+					print ("<th>Usuario</th>\n");
+					print ("<th>Correo</th>\n");
 						print ("</th>\n");
 					print ("</thead>\n");
 					while ($row = $query->fetch()){
 						print ("<tr>\n");
 						print ("<td>" . $row['id'] . "</td>\n");
-						print ("<td>" . $row['codigo'] . "</td>\n");
-						print ("<td>" . $row['peso'] . "</td>\n");
-						print ("<td>" . $row['estado'] . "</td>\n");
+						print ("<td>" . $row['nombre'] . "</td>\n");
+						print ("<td>" . $row['apellidos'] . "</td>\n");
+						print ("<td>" . $row['edad'] . "</td>\n");
+						print ("<td>" . $row['cargo'] . "</td>\n");
+						print ("<td>" . $row['nivel'] . "</td>\n");
+						print ("<td>" . $row['usuario'] . "</td>\n");
+						print ("<td>" . $row['correo'] . "</td>\n");
 						print ("</tr>\n");
 					}
 					print ("</table>\n");
